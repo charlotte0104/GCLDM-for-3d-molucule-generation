@@ -1,0 +1,6 @@
+_target_: src.datamodules.edm_datamodule.EDMDataModule
+#_target_: edm_datamodule.EDMDataModule
+
+defaults:
+  - _self_
+  - dataloader_cfg: edm_qm9_dataloader.yaml
