@@ -132,7 +132,7 @@ def train(cfg: DictConfig) -> Tuple[dict, dict]:
     splits = ["train", "valid", "test"]
     dataloaders = {split: dataloader for (split, dataloader) in zip(splits, dataloaders)}
     # save_checkpoint(model, optim, 0)
-    for epoch in range(15):
+    for epoch in range(2000):
         batch_idx=0
         print('> epoch %s:' % str(epoch).zfill(3))
         model.train()
@@ -140,7 +140,9 @@ def train(cfg: DictConfig) -> Tuple[dict, dict]:
         loss_diff_total=0
         loss_recon_total=0
         loop= tqdm(dataloaders["train"])
-        loss_best=1000000
+        loop_val = tqdm(dataloaders['valid'])
+
+        loss_best_val = 10000
         for data in loop:
             data.to(device)
             loss_diff,loss_recon,loss_all = model.compute_loss(data)
@@ -155,13 +157,22 @@ def train(cfg: DictConfig) -> Tuple[dict, dict]:
             batch_idx+=1
         # if (epoch+1) % 100 == 0:
         #     save_checkpoint(model, optim, epoch)
-        if epoch==0 :
-            loss_best=loss_diff_total
-        # if epoch==epoch_now :
-        #     loss_best=loss_total
-        if loss_diff_total < loss_best :
-            loss_best=loss_diff_total
-            save_checkpoint(model,optim,epoch,True,True)
+        if epoch+1 >= 1500 and epoch+1 /50==0:
+        # if True:
+
+            loss_diff_total_val = 0
+
+            for data in loop_val:
+                with torch.no_grad():
+                    loss_diff_val, loss_recon_val, loss_all_val = model.compute_loss(data)
+
+                    loss_diff_total_val=loss_diff_total_val+loss_diff_val
+
+            if epoch+1==1500:
+                save_checkpoint(model, optim, epoch, True, True)
+            if loss_diff_total_val<loss_best_val:
+                loss_best_val=loss_diff_val
+                save_checkpoint(model, optim, epoch, True, True)
         print(f"mean_loss of epoch_{epoch} : {loss_total/batch_idx}")
         print(f"mean_loss_recon of epoch_{epoch} : {loss_recon_total / batch_idx}")
         print(f"mean_loss_diff of epoch_{epoch} : {loss_diff_total / batch_idx}")

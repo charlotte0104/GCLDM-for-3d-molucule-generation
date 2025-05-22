@@ -325,18 +325,7 @@ def evaluate(cfg: DictConfig) -> Tuple[dict, dict]:
     )
     model.to(device)
     log.info("Loading generator checkpoint!")
-    # model = model.load_from_checkpoint(
-    #     # allow one to evaluate with an older model using custom hyperparameters
-    #     checkpoint_path=cfg.generator_model_filepath,
-    #     map_location=device,
-    #     strict=False,
-    #     model_cfg=hydra.utils.instantiate(cfg.model.model_cfg),
-    #     module_cfg=hydra.utils.instantiate(cfg.model.module_cfg),
-    #     layer_cfg=hydra.utils.instantiate(cfg.model.layer_cfg),
-    #     diffusion_cfg=hydra.utils.instantiate(cfg.model.diffusion_cfg),
-    #     dataloader_cfg=getattr(cfg.datamodule, "dataloader_cfg", None),
-    #     path_cfg=cfg.paths
-    # )
+
 
     model = model.to(device)
     file_name = "/tmp/pycharm_project_80/checkpoint_latent_condition_qm9/homo/" + "best_loss_mini_batch.pth"

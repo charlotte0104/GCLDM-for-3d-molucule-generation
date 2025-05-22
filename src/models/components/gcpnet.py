@@ -1711,46 +1711,7 @@ class GCPNetDecoder(nn.Module):
         # install noisy edge scalar and vector-valued features into graph
         batch.e, batch.xi = _edge_features(batch)
 
-        # self-condition the model's prediction
-        # if self.self_condition:
-        #     x_self_cond_ = (
-        #         x_self_cond
-        #         if x_self_cond is not None
-        #         else torch.zeros_like(x_init)
-        #     )
-        #     h_self_cond = (
-        #         h_self_cond
-        #         if h_self_cond is not None
-        #         else torch.zeros_like(h_init)
-        #     )
-        #     _, x_self_cond_chi = _node_features(
-        #         Batch(
-        #             h=batch.h,
-        #             x=x_self_cond_
-        #         ),
-        #         edm_sampling=True
-        #     )
-        #     x_self_cond_e, x_self_cond_xi = _edge_features(
-        #         Batch(
-        #             x=x_self_cond_,
-        #             edge_index=batch.edge_index
-        #         )
-        #     )
-        #     batch.h = torch.cat((batch.h, h_self_cond), dim=-1)
-        #     batch.chi = torch.cat((batch.chi, x_self_cond_chi), dim=1)
-        #     batch.e = torch.cat((batch.e, x_self_cond_e), dim=-1)
-        #     batch.xi = torch.cat((batch.xi, x_self_cond_xi), dim=1)
 
-        # condition model's predictions on the current time step
-        # if self.condition_on_time:
-        #     if np.prod(t.shape) == 1:
-        #         h_time = torch.empty_like(
-        #             batch.h[:, 0:1],
-        #             device=batch.x.device
-        #         ).fill_(t.item())
-        #     else:
-        #         h_time = t.view(batch.num_nodes, 1)
-        #     batch.h = torch.cat((batch.h, h_time), dim=-1)
 
         # condition model's predictions on the contextual features provided
         if self.condition_on_context:
