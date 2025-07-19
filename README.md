@@ -14,3 +14,11 @@ classifier_model_dir="/root/check_val_GCLDM_from_git/ckpt/Property_Classifiers/e
 property=alpha
 iterations=100
 batch_size=100
+
+
+
+For the unconditional generation on QM9, the training strategy we adopted is as follows: first, pre-train for 1,000 epochs with a batch size of 256, and then continue training for another 1,000 epochs with a batch size of 64.
+
+For conditional generation, it is sufficient to train directly for 1,700 to 2,000 epochs under the condition of a batch size of 64.
+
+We provide pre-trained weights at https://drive.google.com/file/d/1QF-9UXZhEcGelECOwWw6U9tbHMyJbmyp/view?usp=sharing
