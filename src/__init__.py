@@ -1,7 +1,6 @@
 # -------------------------------------------------------------------------------------------------------------------------------------
 # Following code curated for Bio-Diffusion (https://github.com/BioinfoMachineLearning/bio-diffusion):
 # -------------------------------------------------------------------------------------------------------------------------------------
-
 import pickle
 import torch
 import os
@@ -106,8 +105,10 @@ def get_classifier(
     args_classifier.model_name = "egnn"
     classifier = get_classifier_model(args_classifier)
     # file_name = "/tmp/pycharm_project_80/checkpoint_latent_condition_qm9/Property_Classifiers/exp_class_alpha/" + "best_checkpoint.npy"
-    file_name = "/tmp/pycharm_project_80/checkpoint_latent_condition_qm9/Property_Classifiers/exp_class_homo/" + "best_checkpoint.npy"
-    checkpoint = torch.load(file_name,map_location=torch.device("cpu"))
+    # file_name = "/home/xiaofeng/pycharm_project/edm/checkpoint_latent_condition_qm9/Property_Classifiers/exp_class_lumo_seed_427/" + "best_checkpoint.npy"
+    file_name = "/home/xiaofeng/pycharm_project/homo/ckpt/Property_Classifiers/exp_class_homo/" + "best_checkpoint.npy"
+    # file_name = "/home/xiaofeng/pycharm_project/edm/checkpoint_latent_condition_qm9/Property_Classifiers/exp_class_homo/" + "best_checkpoint.npy"
+    checkpoint = torch.load(model_dir+'/best_checkpoint.npy',map_location=torch.device("cpu"))
     # classifier_state_dict = torch.load(
     #     os.path.join(model_dir, "best_checkpoint.npy"),
     #     map_location=torch.device("cpu")
