@@ -171,7 +171,7 @@ def evaluate(cfg: DictConfig) -> Tuple[dict, dict]:
     # )
 
     device = (
-        ("cuda:7" if isinstance(cfg.trainer.devices, int) else f"cuda:{cfg.trainer.devices[0]}")
+        ("cuda:0" if isinstance(cfg.trainer.devices, int) else f"cuda:{cfg.trainer.devices[0]}")
         if torch.cuda.is_available()
         else "cpu"
     )
